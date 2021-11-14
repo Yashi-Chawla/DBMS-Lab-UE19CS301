@@ -1,0 +1,30 @@
+select fname, ssn, 1.1*salary from employee as e, works_on as w, project as p where e.ssn=w.essn and p.pnumber=w.pno and p.pname='ProductX';
+
+select sum(salary) as total_salary, max(salary) as max_salary, min(salary) as min_salary, avg(salary) as avg_salary from employee, department where employee.dno=department.dnumber and department.dname='Research';
+
+
+select count(distinct salary) from employee;
+
+select fname, lname from employee where (select count(*) from dependent where ssn=essn)>=2;
+
+select dnumber, count(ssn), avg(salary)
+from employee as e, department as d
+group by d.dnumber, e.dno
+having d.dnumber=e.dno;
+
+select fname, lname
+from employee
+where employee.salary > (select min(salary) from employee)+10000;
+
+select fname, lname
+from employee as e
+where e.dno = (select dno from employee
+where salary=(select max(salary) from employee));
+
+select dno, salary, count(*) 
+from employee
+group by dno, salary
+having salary>40000;
+
+
+
